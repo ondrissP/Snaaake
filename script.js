@@ -11,10 +11,13 @@ let snakePosX = 0;
 let snakePosY = canvas.height / 2 - snakeSize / 2;
 let snakeSpeed = 5;
 
+let velocityX = 0;
+let velocityY = 0;
+
 // loop
 function gameLoop() {
 	drawStuff();
-	//moveStuff();
+	moveStuff();
 	requestAnimationFrame(gameLoop)
 }
 
@@ -22,10 +25,20 @@ gameLoop();
 
 	// hybeme saaa
 	function moveStuff() {
-		snakePosX += snakeSpeed;
+		snakePosX += snakeSpeed * velocityX;
+		snakePosY += snakeSpeed * velocityY;
 
 		if (snakePosX > canvas.width) {
 			snakePosX = 0;
+		}
+		if (snakePosX < -snakeSize ) {
+			snakePosX = canvas.width
+		}
+		if (snakePosY > canvas.height) {
+			snakePosY = 0;
+		}
+		if (snakePosY < -snakeSize ) {
+			snakePosY = canvas.height
 		}
 	};
 
@@ -49,16 +62,20 @@ gameLoop();
 	function keyPush(event) {
 		switch (event.key) {
 			case "ArrowUp":
-				snakePosY -= snakeSpeed
+				velocityX = 0
+				velocityY = -1
 				break;
 			case "ArrowDown":
-				snakePosY += snakeSpeed
+				velocityX = 0
+				velocityY = 1
 				break;
 			case "ArrowRight":
-				snakePosX += snakeSpeed
+				velocityX = 1
+				velocityY = 0
 				break;
 			case "ArrowLeft":
-				snakePosX -= snakeSpeed
+				velocityX = -1
+				velocityY = 0
 				break;
 		};
 	}
