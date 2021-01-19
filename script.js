@@ -62,25 +62,25 @@ gameLoop();
 	function keyPush(event) {
 		switch (event.key) {
 			case "ArrowUp":
-				if (velocityY != 1) {
+				if (velocityY !== 1) {
 					velocityX = 0
 					velocityY = -1
 				}
 				break;
 			case "ArrowDown":
-				if (velocityY != -1) {
+				if (velocityY !== -1) {
 					velocityX = 0
 					velocityY = 1
 				}
 				break;
 			case "ArrowRight":
-				if (velocityX != -1) {
+				if (velocityX !== -1) {
 					velocityX = 1
 					velocityY = 0
 				}
 				break;
 			case "ArrowLeft":
-				if (velocityX != 1) {
+				if (velocityX !== 1) {
 					velocityX = -1
 					velocityY = 0
 				}
