@@ -9,7 +9,7 @@ const cntxt = canvas.getContext("2d");
 const snakeSize = 50;
 let snakePosX = 0;
 let snakePosY = canvas.height / 2;
-let snakeSpeed = 50;
+let snakeSpeed = snakeSize;
 
 let velocityX = 0;
 let velocityY = 0;
@@ -31,16 +31,16 @@ gameLoop();
 		snakePosX += snakeSpeed * velocityX;
 		snakePosY += snakeSpeed * velocityY;
 
-		if (snakePosX > canvas.width) {
+		if (snakePosX + snakeSize > canvas.width) {
 			snakePosX = 0;
 		}
-		if (snakePosX < -snakeSize ) {
+		if (snakePosX < 0 ) {
 			snakePosX = canvas.width
 		}
-		if (snakePosY > canvas.height) {
+		if (snakePosY + snakeSize > canvas.height) {
 			snakePosY = 0;
 		}
-		if (snakePosY < -snakeSize ) {
+		if (snakePosY < 0 ) {
 			snakePosY = canvas.height
 		}
 	};
