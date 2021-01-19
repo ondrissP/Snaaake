@@ -8,17 +8,20 @@ const cntxt = canvas.getContext("2d");
 // player
 const snakeSize = 50;
 let snakePosX = 0;
-let snakePosY = canvas.height / 2 - snakeSize / 2;
-let snakeSpeed = 5;
+let snakePosY = canvas.height / 2;
+let snakeSpeed = 50;
 
 let velocityX = 0;
 let velocityY = 0;
+
+const tileCountX = canvas.width / snakeSize;
+const tileCountY = canvas.height / snakeSize;
 
 // loop
 function gameLoop() {
 	drawStuff();
 	moveStuff();
-	requestAnimationFrame(gameLoop)
+	setTimeout(gameLoop, 1000/15)
 }
 
 gameLoop();
@@ -46,7 +49,11 @@ gameLoop();
 	 *  kresliimeee vsetko
 	 **/
 	function drawStuff() {
-		rectangle("white", 0, 0, canvas.width, canvas.height);
+		// background
+		rectangle("#bada55", 0, 0, canvas.width, canvas.height);
+		// grid
+		drawGrid();
+		// snake
 		rectangle("black", snakePosX, snakePosY, snakeSize, snakeSize);
 	}
 
@@ -86,4 +93,13 @@ gameLoop();
 				}
 				break;
 		};
+	}
+
+	// kreslime grid
+	function drawGrid() {
+		for (let i = 0; i < tileCountX; i++) {
+			for (let j = 0; j <tileCountY; j++){
+				rectangle("white", snakeSize * i, snakeSize * j, snakeSize - 1, snakeSize - 1);
+			}
+		}
 	}
