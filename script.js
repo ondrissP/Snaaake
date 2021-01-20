@@ -10,9 +10,12 @@ const snakeSize = 50;
 let snakePosX = 0;
 let snakePosY = canvas.height / 2;
 let snakeSpeed = snakeSize;
-
 let velocityX = 0;
 let velocityY = 0;
+
+// fooood
+let foodPosX = 350;
+let foodPosY = 400;
 
 const tileCountX = canvas.width / snakeSize;
 const tileCountY = canvas.height / snakeSize;
@@ -21,7 +24,7 @@ const tileCountY = canvas.height / snakeSize;
 function gameLoop() {
 	drawStuff();
 	moveStuff();
-	setTimeout(gameLoop, 1000/15)
+	setTimeout(gameLoop, 1000/10)
 }
 
 gameLoop();
@@ -31,6 +34,7 @@ gameLoop();
 		snakePosX += snakeSpeed * velocityX;
 		snakePosY += snakeSpeed * velocityY;
 
+		// wall collision
 		if (snakePosX + snakeSize > canvas.width) {
 			snakePosX = 0;
 		}
@@ -43,11 +47,17 @@ gameLoop();
 		if (snakePosY < 0 ) {
 			snakePosY = canvas.height
 		}
-	};
 
-	/**
-	 *  kresliimeee vsetko
-	 **/
+		// food collision
+			if (snakePosX === foodPosX && snakePosY === foodPosY) {
+				resetFood()
+			}
+		}
+
+/**
+ *  kresliimeee vsetko
+ **/
+
 	function drawStuff() {
 		// background
 		rectangle("#bada55", 0, 0, canvas.width, canvas.height);
@@ -55,13 +65,23 @@ gameLoop();
 		drawGrid();
 		// snake
 		rectangle("black", snakePosX, snakePosY, snakeSize, snakeSize);
+		// food
+		rectangle("orange", foodPosX, foodPosY, snakeSize, snakeSize);
 	}
+
 
 	// kreslime stvorceky
 	function rectangle(color, x, y, width, height) {
 		cntxt.fillStyle = color
 		cntxt.fillRect(x, y, width, height)
 	}
+
+	// randomize food position
+	function resetFood() {
+		foodPosX = Math.floor(Math.random() * tileCountX) * snakeSize;
+		foodPosY = Math.floor(Math.random() * tileCountY) * snakeSize;
+	}
+
 
 	/**
 	*   Ovladame hadika
@@ -92,7 +112,7 @@ gameLoop();
 					velocityY = 0
 				}
 				break;
-		};
+		}
 	}
 
 	// kreslime grid
