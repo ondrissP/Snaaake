@@ -1,7 +1,13 @@
-body{
+body {
 	background: #bada55;
 	text-align: center;
 }
-canvas{
+canvas {
 	border:solid 10px darkblue;
+}
+h1 {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
+	font-weight: bold;
+	font-size: 4.5em;
+	margin-top: 0;
 }

@@ -3,6 +3,7 @@ document.addEventListener("keydown", keyPush)
 
 // canvas
 const canvas = document.querySelector("canvas");
+const title = document.querySelector("h1")
 const cntxt = canvas.getContext("2d");
 
 // player
@@ -14,12 +15,13 @@ let velocityX = 0;
 let velocityY = 0;
 
 // fooood
-let foodPosX = 350;
-let foodPosY = 400;
+let foodPosX = 0;
+let foodPosY = 0;
 
+// game
 const tileCountX = canvas.width / snakeSize;
 const tileCountY = canvas.height / snakeSize;
-
+let score = 0;
 // loop
 function gameLoop() {
 	drawStuff();
@@ -27,6 +29,7 @@ function gameLoop() {
 	setTimeout(gameLoop, 1000/10)
 }
 
+resetFood();
 gameLoop();
 
 	// hybeme saaa
@@ -50,6 +53,8 @@ gameLoop();
 
 		// food collision
 			if (snakePosX === foodPosX && snakePosY === foodPosY) {
+				score++;
+				title.textContent = score;
 				resetFood()
 			}
 		}
@@ -69,7 +74,6 @@ gameLoop();
 		rectangle("orange", foodPosX, foodPosY, snakeSize, snakeSize);
 	}
 
-
 	// kreslime stvorceky
 	function rectangle(color, x, y, width, height) {
 		cntxt.fillStyle = color
@@ -81,7 +85,6 @@ gameLoop();
 		foodPosX = Math.floor(Math.random() * tileCountX) * snakeSize;
 		foodPosY = Math.floor(Math.random() * tileCountY) * snakeSize;
 	}
-
 
 	/**
 	*   Ovladame hadika
