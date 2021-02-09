@@ -13,6 +13,7 @@ const fps = 10;
 const tileSize = 50;
 const tileCountX = canvas.width / tileSize;
 const tileCountY = canvas.height / tileSize;
+const snakeRadius =  tileSize / 2;
 let snakeLength = 3;
 let score = 0;
 
@@ -26,8 +27,8 @@ let velocityY = 0;
 let tail = []
 
 // fooood
-let foodPosX = 0;
-let foodPosY = 0;
+let foodPosX;
+let foodPosY;
 
 // loop
 function gameLoop() {
@@ -47,16 +48,16 @@ gameLoop();
 		snakePosY += snakeSpeed * velocityY;
 
 		// wall collision
-		if (snakePosX + tileSize > canvas.width) {
+		if (snakePosX + snakeRadius > canvas.width) {
 			snakePosX = 0;
 		}
 		if (snakePosX < 0 ) {
 			snakePosX = canvas.width
 		}
-		if (snakePosY + tileSize > canvas.height) {
-			snakePosY = 0;
+		if (snakePosY > canvas.height) {
+			snakePosY = tileSize;
 		}
-		if (snakePosY < 0 ) {
+		if (snakePosY - tileSize < 0) {
 			snakePosY = canvas.height
 		}
 
@@ -67,12 +68,12 @@ gameLoop();
 		});
 
 		// tail
-		tail.push({x: snakePosX, y: snakePosY})
+		tail.push({x: snakePosX , y: snakePosY})
 
 		tail = tail.slice(-1 * snakeLength);
 
 		// food collision
-			if (snakePosX === foodPosX && snakePosY === foodPosY) {
+			if (snakePosX === foodPosX && snakePosY - tileSize === foodPosY) {
 				score++;
 				snakeLength++;
 				title.textContent = score;
@@ -97,16 +98,34 @@ gameLoop();
 
 		// tail
 		tail.forEach((snakePart) =>
-			rectangle('#555', snakePart.x, snakePart.y, tileSize, tileSize))
+		//rectangle('#555', snakePart.x, snakePart.y, tileSize, tileSize))
 
-			// snake
-			rectangle("black", snakePosX, snakePosY, tileSize, tileSize);
-		};
+		circle("#555", (snakePart.x + snakeRadius), (snakePart.y - snakeRadius), snakeRadius)
+		)
+
+		// snake head rectangle
+		//rectangle("black", snakePosX, snakePosY, tileSize, tileSize);
+
+		//snake head circle
+		circle("black", (snakePosX + snakeRadius), (snakePosY - snakeRadius), snakeRadius);
+			};
 
 	// kreslime stvorceky
 	function rectangle(color, x, y, width, height) {
 		cntxt.fillStyle = color
 		cntxt.fillRect(x, y, width, height)
+	}
+
+	// kreslime kruzky
+	function circle(color, x, y, radius) {
+
+		cntxt.beginPath();
+		cntxt.arc(x, y, radius, 0, 2 * Math.PI);
+		cntxt.fillStyle = color;
+		cntxt.fill();
+		cntxt.lineWidth = 5;
+		cntxt.strokeStyle = color
+		cntxt.stroke();
 	}
 
 	// randomize food position
