@@ -47,7 +47,9 @@ gameLoop();
 		snakePosX += snakeSpeed * velocityX;
 		snakePosY += snakeSpeed * velocityY;
 
-		// wall collision
+		// wall collisions
+
+		/* Prechádzame cez steny
 		if (snakePosX + snakeRadius > canvas.width) {
 			snakePosX = 0;
 		}
@@ -59,6 +61,21 @@ gameLoop();
 		}
 		if (snakePosY - tileSize < 0) {
 			snakePosY = canvas.height
+		}
+		*/
+
+		// búrame do steny
+		if (snakePosX + snakeRadius > canvas.width) {
+			gameOver();
+		}
+		if (snakePosX < 0 ) {
+			gameOver();
+		}
+		if (snakePosY > canvas.height) {
+			gameOver();
+		}
+		if (snakePosY - tileSize < 0) {
+			gameOver();
 		}
 
 		tail.forEach((snakePart) => {
@@ -141,7 +158,7 @@ gameLoop();
 			resetFood();
 		}
 		// nedavaj jedlo na telo
-		if (tail.some(snakePart => snakePart.x === foodPosX && snakePart.y === foodPosY)){
+		if (tail.some(snakePart => snakePart.x  === foodPosX && snakePart.y === foodPosY)){
 			resetFood();
 		}
 
